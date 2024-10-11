@@ -1,0 +1,30 @@
+# Build Folders
+bin/
+obj/
+
+# IDE Config
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Packages
+packages/
+*.nupkg
+node_modules/
+
+# Entity Framework Migration Designer Files
+Migrations/*.Designer.cs
+
+# User Secrets
+appsettings.Development.json
+.env
