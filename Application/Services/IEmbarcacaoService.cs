@@ -6,6 +6,7 @@ namespace RotaMarinho.Application.Services
     {
         Task<IEnumerable<EmbarcacaoDTO>> GetAllEmbarcacoesAsync();
         Task<EmbarcacaoDTO> GetEmbarcacaoByIdAsync(int id);
+        Task<EmbarcacaoDTO> GetEmbarcacaoByMatriculaAsync(string matricula);
         Task AddEmbarcacaoAsync(EmbarcacaoDTO embarcacaoDTO);
         Task UpdateEmbarcacaoAsync(int id, EmbarcacaoDTO embarcacaoDTO);
         Task DeleteEmbarcacaoAsync(int id);

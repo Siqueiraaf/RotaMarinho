@@ -4,6 +4,7 @@ namespace RotaMarinho.Entities
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        public string Matricula { get; set; }
         public int Capacidade { get; set; }
         public string Tipo { get; set; }
         public string Status { get; set; }

@@ -22,6 +22,7 @@ namespace RotaMarinho.Application.Services
             {
                 Id = e.Id,
                 Nome = e.Nome,
+                Matricula = e.Matricula,
                 Capacidade = e.Capacidade,
                 TipoAlocacao = e.TipoAlocacao,
                 PrecoPorHora = e.PrecoPorHora ?? 0m,
@@ -43,6 +44,31 @@ namespace RotaMarinho.Application.Services
             {
                 Id = embarcacao.Id,
                 Nome = embarcacao.Nome,
+                Matricula = embarcacao.Matricula,
+                Capacidade = embarcacao.Capacidade,
+                TipoAlocacao = embarcacao.TipoAlocacao,
+                PrecoPorHora = embarcacao.PrecoPorHora ?? 0m,
+                PrecoPorTrabalho = embarcacao.PrecoPorTrabalho ?? 0m,
+                Status = embarcacao.Status,
+            };
+        }
+
+        // Obter uma embarcação pela matrícula
+        public async Task<EmbarcacaoDTO> GetEmbarcacaoByMatriculaAsync(string matricula)
+        {
+            var embarcacao = await _context.Embarcacoes
+                .FirstOrDefaultAsync(e => e.Matricula == matricula);
+
+            if (embarcacao == null)
+            {
+                return null;
+            }
+
+            return new EmbarcacaoDTO
+            {
+                Id = embarcacao.Id,
+                Nome = embarcacao.Nome,
+                Matricula = embarcacao.Matricula,
                 Capacidade = embarcacao.Capacidade,
                 TipoAlocacao = embarcacao.TipoAlocacao,
                 PrecoPorHora = embarcacao.PrecoPorHora ?? 0m,
@@ -57,6 +83,7 @@ namespace RotaMarinho.Application.Services
             var embarcacao = new Embarcacao
             {
                 Nome = embarcacaoDTO.Nome,
+                Matricula = embarcacaoDTO.Matricula,
                 Capacidade = embarcacaoDTO.Capacidade,
                 TipoAlocacao = embarcacaoDTO.TipoAlocacao,
                 PrecoPorHora = embarcacaoDTO.PrecoPorHora,
@@ -75,6 +102,7 @@ namespace RotaMarinho.Application.Services
             if (embarcacao != null)
             {
                 embarcacao.Nome = embarcacaoDTO.Nome;
+                embarcacao.Matricula = embarcacaoDTO.Matricula;
                 embarcacao.Capacidade = embarcacaoDTO.Capacidade;
                 embarcacao.TipoAlocacao = embarcacaoDTO.TipoAlocacao;
                 embarcacao.PrecoPorHora = embarcacaoDTO.PrecoPorHora;
@@ -109,6 +137,7 @@ namespace RotaMarinho.Application.Services
             {
                 Id = e.Id,
                 Nome = e.Nome,
+                Matricula = e.Matricula,
                 Capacidade = e.Capacidade,
                 TipoAlocacao = e.TipoAlocacao,
                 PrecoPorHora = e.PrecoPorHora ?? 0m,

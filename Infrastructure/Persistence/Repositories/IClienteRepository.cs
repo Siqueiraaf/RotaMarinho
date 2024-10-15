@@ -1,3 +1,4 @@
+using RotaMarinho.Domain.Entities;
 using RotaMarinho.Entities;
 
 namespace RotaMarinho.Infrastructure.Persistence.Repositories

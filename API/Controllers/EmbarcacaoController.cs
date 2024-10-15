@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RotaMarinho.Application.Services;
+using RotaMarinho.Domain.Entities;
 using RotaMarinho.DTOs;
 
 namespace RotaMarinho.API.Controllers
@@ -24,18 +25,29 @@ namespace RotaMarinho.API.Controllers
         }
 
         // GET: api/rotamarinho/embarcacao/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetEmbarcacao(int id)
         {
-            try
+            var embarcacao = await _embarcacaoService.GetEmbarcacaoByIdAsync(id);
+            if (embarcacao == null)
             {
-                var embarcacao = await _embarcacaoService.GetEmbarcacaoByIdAsync(id);
-                return Ok(embarcacao);
+                return NotFound("Embarcação não encontrada.");
             }
-            catch (Exception ex)
+
+            return Ok(embarcacao);
+        }
+        
+        // GET: api/rotamarinho/embarcacao/{matricula}
+        [HttpGet("{matricula}")]
+        public async Task<IActionResult> GetEmbarcacao(string matricula)
+        {
+            var embarcacao = await _embarcacaoService.GetEmbarcacaoByMatriculaAsync(matricula);
+            if (embarcacao == null)
             {
-                return NotFound(ex.Message);
+                return NotFound("Embarcação não encontrada.");
             }
+
+            return Ok(embarcacao);
         }
 
         // POST: api/rotamarinho/embarcacao
@@ -47,15 +59,14 @@ namespace RotaMarinho.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            try
+            var embarcacaoExistente = _embarcacaoService.GetEmbarcacaoByIdAsync(embarcacaoDTO.Id);
+            if (embarcacaoExistente != null)
             {
-                await _embarcacaoService.AddEmbarcacaoAsync(embarcacaoDTO);
-                return CreatedAtAction(nameof(GetEmbarcacao), new { id = embarcacaoDTO.Id }, embarcacaoDTO);
+                return Conflict("Embarcação com este ID já existe");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            await _embarcacaoService.AddEmbarcacaoAsync(embarcacaoDTO);
+            return CreatedAtAction(nameof(AddEmbarcacao), new { id = embarcacaoDTO.Id }, embarcacaoDTO);
         }
 
         // PUT: api/rotamarinho/embarcacao/{id}
@@ -67,15 +78,14 @@ namespace RotaMarinho.API.Controllers
                 return BadRequest();
             }
 
-            try
+            var embarcacaoExistente = await _embarcacaoService.GetEmbarcacaoByIdAsync(id);
+            if (embarcacaoExistente == null)
             {
-                await _embarcacaoService.UpdateEmbarcacaoAsync(id, embarcacaoDTO);
-                return NoContent();
+                return NotFound("Embarcação não encontrada");
             }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+
+            await _embarcacaoService.UpdateEmbarcacaoAsync(id, embarcacaoDTO);
+            return NoContent();
         }
 
         // DELETE: api/rotamarinho/embarcacao/{id}

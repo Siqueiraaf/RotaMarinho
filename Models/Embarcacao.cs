@@ -5,6 +5,7 @@ namespace RotaMarinho.Models
         // Tabelas do banco de dados
         public int Id { get; set; }
         public string Nome { get; set; }
+        public string Matricula { get; set; }
         public int Capacidade { get; set; }
         public string TipoAlocacao { get; set; } // Passeio ou Serviço
         public decimal? PrecoPorHora { get; set; }

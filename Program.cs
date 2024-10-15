@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RotaMarinho.Infrastructure.Persistence;
 using RotaMarinho.Domain.Repositories;
-using RotaMarinho.Services;
 using RotaMarinho.Application.Services;
 
 
@@ -35,11 +34,11 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
-//
+
 // registro do repositorio
 builder.Services.AddScoped<IEmbarcacaoRepository, EmbarcacaoRepository>();
 builder.Services.AddScoped<IEmbarcacaoService, EmbarcacaoService>();
-builder.Services.AddScoped<IClienteService, ClienteService>(); // injeção de dependencia
+//builder.Services.AddScoped<IClienteService, ClienteService>(); // injeção de dependencia
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
