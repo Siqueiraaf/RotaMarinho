@@ -17,14 +17,8 @@ obj/
 .DS_Store
 Thumbs.db
 
-# Packages
-packages/
-*.nupkg
-node_modules/
-
 # Entity Framework Migration Designer Files
 Migrations/*.Designer.cs
 
 # User Secrets
 appsettings.Development.json
-.env
